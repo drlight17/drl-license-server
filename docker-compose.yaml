@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  license-server:
+    build: .
+    container_name: license-server
+    ports:
+      - "8080:80"
+    env_file:
+      - .env
+    volumes:
+      - ./src:/var/www/html
+      - ./data:/var/www/data
+      - ./logs:/var/www/logs
+      # Mount timezone data from host
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+    environment:
+      # Set timezone from host
+      - TZ=${TZ:-UTC}
+    restart: unless-stopped
