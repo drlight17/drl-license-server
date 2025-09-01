@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   license-server:
     image: drlight17/drl-license-server:latest
