@@ -31,8 +31,8 @@ A simple PHP-based license validation server for shareware applications with Doc
 
 1. Clone the repository:
 ```bash
-git clone <repository-url>
-cd license-server
+git clone https://github.com/drlight17/drl-license-server
+cd drl-license-server
 ```
 
 2. Create `.env` file:
