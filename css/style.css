@@ -1,0 +1,324 @@
+/*server stylesheet*/
+
+/* Body and Container */
+body {
+    margin-top: 2em;
+}
+
+body.inverted {
+    background-color: dimgrey;
+}
+
+.ui.container {
+    margin-top: 2em;
+}
+
+.ui.buttons {
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+
+/* Header */
+.logo {
+    font-size: 2em;
+    margin-bottom: 1em;
+}
+
+/* Login Form */
+.login.column {
+    max-width: 450px;
+}
+
+/* Dashboard Grid */
+.ui.three.column.stackable.grid .column {
+    /* Styles for dashboard cards */
+}
+
+/* Search Controls */
+.search-controls {
+    /* Styles for the search/filter section */
+}
+
+.search-controls .fields {
+    /* Flexbox or other layout for search fields */
+}
+
+/* License Table */
+.license-table {
+    /* General table styles if needed beyond Fomantic UI */
+}
+
+/* Status Badges */
+.status-expired {
+    /* Styles for expired status, e.g., color */
+    color: #db2828; /* Red */
+}
+
+.status-active {
+    /* Styles for active status, e.g., color */
+    color: #21ba45; /* Green */
+}
+
+.status-inactive {
+    /* Styles for inactive status, e.g., color */
+    color: #767676; /* Grey */
+}
+
+/* Create License Form */
+#createLicenseForm {
+    display: none; /* Initially hidden */
+}
+
+/* Footer */
+.footer {
+    margin-top: 2em;
+    padding: 1em;
+    text-align: center;
+    color: #666;
+    font-size: 0.9em;
+}
+
+/* Sorting Indicators (if not fully handled by Fomantic UI classes) */
+th.sortable {
+    cursor: pointer;
+    user-select: none;
+    opacity: .7;
+}
+
+th.sorted {
+    opacity:1;
+}
+
+
+/* Loader */
+.ui.active.centered.inline.loader {
+    /* Styles for the loading spinner */
+}
+input[type="email"] {
+    /* You can add specific styles for email field */
+}
+
+/* Styles for invalid field */
+input[type="email"]:invalid:not(:focus):not(:placeholder-shown) {
+    border-color: #db2828 !important; /* Red border */
+    box-shadow: 0 0 0 0.1em rgba(219, 40, 40, 0.2) !important;
+}
+
+/* Styles for valid field */
+input[type="email"]:valid:not(:focus):not(:placeholder-shown) {
+    border-color: #21ba45 !important; /* Green border */
+    box-shadow: 0 0 0 0.1em rgba(33, 186, 69, 0.2) !important;
+}
+
+/* Styles for sticky table header */
+.license-table-container {
+    position: relative;
+    /* max-height: 60vh; /* Limit height if needed to activate scrolling within container */
+    /* overflow-y: auto;  /* Allow vertical scrolling within container */
+}
+
+/* Make THEAD sticky */
+[data-tab="licenses"] thead, [data-tab="logs"] .ui.form {
+    position: sticky;
+    top: 0;
+    z-index: 9; /* Ensure it's above table body */
+    background-color: #fff; /* Background color matching default Fomantic UI table background */
+    box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.1); /* Optional: shadow for separation */
+}
+
+[data-tab="licenses"] thead>tr>th {
+    cursor: pointer!important;
+}
+
+/* Styles for sticky pagination */
+.licensesPaginationContainer, .logsPaginationContainer {
+    position: sticky!important;
+    bottom: 0;
+    background-color: white; /* Background to hide scrolling content behind */
+    padding: 1em 0; /* Padding top and bottom */
+    margin-top: 1em; /* Top margin from table */
+    z-index: 10; /* Ensure it's above content */
+    box-shadow: 0 -2px 2px -1px rgba(0, 0, 0, 0.1); /* Optional: shadow from top */
+    /* border-top: 1px solid rgba(34, 36, 38, 0.1); /* Optional: line from top */
+}
+
+/* Ensure pagination menu is centered within container */
+.licensesPaginationContainer .ui.pagination.menu, .logsPaginationContainer .ui.pagination.menu{
+    justify-content: center;
+    margin: 0;
+}
+
+.ui.form.inverted {
+    background-color: black;
+}
+
+table.inverted thead {
+    background-color: dimgrey;
+}
+body.inverted .ui.container {
+    color: white;
+}
+
+.ui.buttons .button {
+    border-radius: inherit!important;
+    margin: 0!important;
+}
+
+/* === Styles for horizontal scrolling and gradient mask === */
+
+/* Main container that limits visible table area */
+.scrollable-table-container {
+    position: relative;
+    width: 100%;
+    /* If you want to limit maximum table height, uncomment the following lines: */
+    /* max-height: 500px; /* Set desired maximum height */
+    /* overflow-y: auto; /* Allows vertical scrolling if table is tall */
+}
+
+/* Container providing horizontal scrolling */
+.license-table-wrapper {
+    overflow-x: auto; /* Enables horizontal scrolling */
+    overflow-y: hidden; /* Disables vertical scrolling within this container */
+    width: 100%;
+    /* Hide scrollbars for cleaner look (optional) */
+    /* For Webkit browsers */
+    /* 
+   ::-webkit-scrollbar {
+        display: none;
+    }
+    -ms-overflow-style: none;  /* IE and Edge */
+    /* scrollbar-width: none;  /* Firefox */
+}
+
+/* Ensure table can be wider than container */
+.license-table-container {
+    min-width: 100%; /* Minimum width equals container width */
+    display: inline-block; /* Allows container to grow by content width */
+}
+
+/* Styles for table */
+.license-table {
+    width: 100%; /* Table will stretch to 100% of its container */
+    /* If you want fixed table width, larger than 100%, set specific value */
+    /* width: 1200px; /* or any other width */
+    /* table-layout: fixed; /* If using fixed width, this may help */
+    margin-bottom: 0; /* Remove bottom margin if it exists in Fomantic */
+}
+
+/* === Gradient mask (Overlay) === */
+
+/* Common styles for overlays */
+.scroll-overlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 30px; /* Gradient area width */
+    pointer-events: none; /* Overlays don't intercept clicks */
+    opacity: 0; /* Hidden by default */
+    transition: opacity 0.3s ease; /* Smooth appearance/disappearance */
+    z-index: 10; /* Above table but below headers */
+}
+
+/* Left overlay */
+.scroll-overlay.left-overlay {
+    left: 0;
+    background: linear-gradient(to right, rgba(255, 255, 255, 0.8), transparent);
+}
+body.inverted .scroll-overlay.left-overlay {
+    background: linear-gradient(to right, rgba(30, 30, 30, 0.8), transparent);
+}
+
+/* Right overlay */
+.scroll-overlay.right-overlay {
+    right: 0;
+    background: linear-gradient(to left, rgba(255, 255, 255, 0.8), transparent);
+}
+
+body.inverted .scroll-overlay.right-overlay {
+    background: linear-gradient(to left, rgba(30, 30, 30, 0.8), transparent);
+}
+
+/* Class added when table can scroll left */
+.scrollable-table-container.can-scroll-left .scroll-overlay.left-overlay {
+    opacity: 1;
+}
+
+/* Class added when table can scroll right */
+.scrollable-table-container.can-scroll-right .scroll-overlay.right-overlay {
+    opacity: 1;
+}
+
+/* Optional: styles for sticky headers during horizontal scrolling */
+.license-table thead th {
+    position: sticky;
+    top: 0;
+    background-color: #f9fafb; /* Background color matching default Fomantic UI table background */
+    z-index: 10; /* Ensure headers are above table body */
+}
+
+
+#language-switcher {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    opacity: .8;
+    z-index: 1000;
+}
+#language-select {
+    min-width: 120px;
+}
+/* Ensure theme toggle is positioned correctly */
+#theme-toggle {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    opacity: .8;
+    cursor: pointer;
+    padding: 20px;
+    border-radius: 50%;
+    background-color: dimgrey;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+body.inverted #theme-toggle {
+    background-color: white;
+}
+
+.mailto {
+    display: inline;
+    height: 70px;
+    filter: brightness(.2);
+    position: fixed;
+    left: 5px;
+    bottom: 0;
+    margin-right: 10px;
+    transition: filter .1s ease, opacity .1s ease, background-color .1s ease, color .1s ease, box-shadow .1s ease, background .1s ease;
+    z-index: 2;
+}
+.footer p {
+    position: fixed;
+    left: 40%;
+    bottom: 15px;
+    z-index: -1;
+}
+
+[data-tab="licenses"], [data-tab="logs"],[data-tab="dashboard"]  {
+    z-index: 3;
+    position: relative;
+}
+@media only screen and (max-width: 767.98px) {
+    [data-tab="dashboard"] .ui.card {
+        width:100%;
+    }
+    [data-tab="dashboard"] .extra.content {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
