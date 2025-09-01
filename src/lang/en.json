@@ -157,7 +157,7 @@
     "email_license_deleted_subject": "License Deleted for {product}",
     "email_license_deleted_body": "Hello,\n\nYour license for {product} has been deleted from our system.\nLicense Key: {key}\nDeletion Date: {deletion_date}\n\nIf you believe this is an error, please contact support.\n\nBest regards,\nLicense Server",
     "email_test_subject": "License Server Email Test",
-    "email_test_body": "This is a test email from your License Server.\n\nIf you received this email, your SMTP settings are working correctly.\n\nTime sent: {time}\nServer IP: {ip}",
+    "email_test_body": "This is a test email from your License Server.\n\nIf you received this email, your SMTP settings are working correctly.\n\nTime sent: {time}\nClient IP: {ip}",
     "email_expires_on": "Expires on: {date}",
     "email_never_expires": "Never expires"
 }
