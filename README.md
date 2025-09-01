@@ -1,4 +1,4 @@
-# License Server with API
+# DRL License Server with API
 
 A simple PHP-based license validation server for shareware applications with Docker support, Swagger UI documentation, and an administrator web interface.
 
