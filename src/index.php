@@ -1,6 +1,7 @@
 <?php
 session_start();
-
+// version
+$version = '0.91';
 // --- Localization Logic ---
 $supportedLocales = ['en', 'ru'];
 $defaultLocale = 'en';

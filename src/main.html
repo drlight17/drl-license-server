@@ -158,13 +158,13 @@
                                         </div>
                                         <div class="description">
                                             <p><?= htmlspecialchars($lang['dashboard_card_email_desc'] ?? 'Send a test email to verify configuration.'); ?></p>
-                                            <!-- Test email send button -->
-                                            <button class="ui small button" id="sendTestEmailBtn">
-                                                <i class="paper plane icon"></i> <?= htmlspecialchars($lang['dashboard_card_email_btn'] ?? 'Send Test Email'); ?>
-                                            </button>
                                         </div>
                                     </div>
                                     <div class="extra content">
+                                        <!-- Test email send button -->
+                                        <button class="ui small button" id="sendTestEmailBtn">
+                                            <i class="paper plane icon"></i> <?= htmlspecialchars($lang['dashboard_card_email_btn'] ?? 'Send Test Email'); ?>
+                                        </button>
                                         <!-- Area for displaying send log -->
                                         <div class="ui segment" style="max-height: 200px; overflow-y: auto; display: none;" id="emailTestLog">
                                             <div class="ui header"><?= htmlspecialchars($lang['email_test_log'] ?? 'Email Test Log'); ?></div>
@@ -326,8 +326,8 @@
                                             <?= htmlspecialchars($lang['licenses_cancel_button'] ?? 'Cancel'); ?>
                                         </button>
                                     </form>
-                                    <div id="createResult"></div>
                                 </div>
+                                <div id="createResult"></div>
                             </div>
                         </div>
                     </div>
@@ -396,7 +396,7 @@
     </div>
     <div class="footer">
         <div class="ui container">
-            <p><?= htmlspecialchars($lang['footer_copyright'] ?? '&copy; Company'); ?> <?= date('Y'); ?></p>
+            <p><?= htmlspecialchars($lang['footer_copyright'].' v.'.$version ?? '&copy; Company'); ?> <?= '© '.date('Y'); ?></p>
         </div>
         <a href="mailto:root@drlight.fun"><img class="mailto" src="/css/developed_by_drlight.png"></a>
     </div>
