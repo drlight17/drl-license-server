@@ -29,15 +29,16 @@ A simple PHP-based license validation server for shareware applications with Doc
 
 ### Using Docker (Recommended)
 
-1. Clone the repository:
+1. Get docker-compose.yaml file
 ```bash
-git clone https://github.com/drlight17/drl-license-server
+mkdir drl-license-server
 cd drl-license-server
+wget https://raw.githubusercontent.com/drlight17/drl-license-server/refs/heads/main/docker-compose.yaml
 ```
 
-2. Create `.env` file:
+2. Get `.env` file:
 ```bash
-cp env.example .env
+wget https://raw.githubusercontent.com/drlight17/drl-license-server/refs/heads/main/env.example -O .env
 ```
 
 3. Edit `.env` file with your settings:
@@ -108,7 +109,7 @@ After starting the server, you can access:
 
 1. Open `http://localhost:8080/` in your browser.
 2. Enter your `ADMIN_KEY` from the `.env` file to log in.
-3. Use the web interface to manage licenses, view logs, and send test emails.
+3. Use the web interface to manage licenses.
 
 ## API Endpoints
 
@@ -488,7 +489,7 @@ docker-compose down
 docker-compose up -d --build
 
 # Access container shell
-docker-compose exec license-server bash
+docker-compose exec drl-license-server bash
 ```
 
 ## Data Persistence
@@ -553,13 +554,28 @@ async function validateLicense(licenseKey) {
 Check logs for debugging:
 ```bash
 # Docker logs
-docker-compose logs license-server
+docker-compose logs drl-license-server
 
 # Application logs
 tail -f logs/license.log
 ```
 
 ## Development
+
+### Prepare
+- clone the repo
+```bash
+git clone https://github.com/drlight17/drl-license-server
+cd drl-license-server
+```
+- build image:
+```bash
+docker build -t <your_tag_name> --no-cache .
+```
+- or if you want to use docker compose modify `docker-compose.yaml`: change `image: drlight17/drl-license-server:latest` to `build: .` and:
+```bash
+docker-compose build --no-cache
+```
 
 ### Project Structure
 - `/src/api.php` - Core API logic (main file from KB)
@@ -574,12 +590,16 @@ tail -f logs/license.log
 - `/src/lang/*.json` - Localization files
 - `/src/css/style.css` - main CSS style
 
+
 ### Adding New Features
 1. Modify `api.php` to add new endpoints
 2. Update `swagger-spec.php` with new API documentation
 3. Test using Swagger UI
 4. Update `index.php` and `main.html`/`main.js` to integrate with web interface
 5. Update README.md with new features
+
+### Docker build
+
 
 ## License
 
