@@ -20,6 +20,8 @@ RUN echo "date.timezone = \${TZ}" >> /usr/local/etc/php/conf.d/timezone.ini
 # Создаем директорию вне /var/www/html, которая не будет перезаписана томом
 RUN mkdir -p /var/www/deps
 
+COPY src/.htaccess /var/www/deps/
+
 # Копируем composer файлы во временную директорию
 COPY src/composer.json src/composer.lock* /var/www/deps/
 
@@ -58,6 +60,7 @@ echo "Copying source files..."\n\
 cp -r /var/www/html_source/* /var/www/html/ 2>/dev/null || true\n\
 echo "Copying dependencies..."\n\
 cp -r /var/www/deps/vendor /var/www/html/ 2>/dev/null || true\n\
+cp -r /var/www/deps/.htaccess /var/www/html/ 2>/dev/null || true\n\
 echo "Setting permissions..."\n\
 chown -R www-data:www-data /var/www/html/\n\
 chmod -R 755 /var/www/html/\n\
