@@ -146,25 +146,18 @@
     "action_activate_title": "Activate License",
     "email_license_created_user_subject": "License Created - Awaiting Activation",
     "email_license_created_user_body": "Hello,\n\nA new license for {product} has been created for you.\n\nLicense Key: {key}\nCreated on: {created}\n{expires_info}\n\nThis license requires manual activation by our administrator. You will receive another email once it's activated.\n\nBest regards,\nLicense Server",
-
     "email_license_created_admin_subject": "New License Request - Requires Activation",
     "email_license_created_admin_body": "Administrator,\n\nA new license request has been submitted and requires manual activation.\n\nUser: {user}\nProduct: {product}\nLicense Key: {key}\nCreated on: {created}\n{expires_info}\n\nPlease activate this license through the admin panel.\n\nBest regards,\nLicense Server",
-
     "email_license_created_admin_direct_subject": "New License Created for {product}",
     "email_license_created_admin_direct_body": "Hello,\n\nA new license for {product} has been created for you.\n\nLicense Key: {key}\nCreated on: {created}\n{expires_info}\n\nPlease keep this email for your records.\n\nBest regards,\nLicense Server",
-
     "email_license_expired_subject": "License Expired for {product}",
     "email_license_expired_body": "Hello,\n\nYour license for {product} has expired.\nLicense Key: {key}\nExpiration Date: {expires}\n\nPlease contact support to renew your license.\n\nBest regards,\nLicense Server",
-
     "email_license_activated_subject": "License Activated for {product}",
     "email_license_activated_body": "Hello,\n\nYour license for {product} has been successfully activated.\nLicense Key: {key}\nActivation Date: {activation_date}\n\nThank you for using our product!\n\nBest regards,\nLicense Server",
-
     "email_license_deleted_subject": "License Deleted for {product}",
     "email_license_deleted_body": "Hello,\n\nYour license for {product} has been deleted from our system.\nLicense Key: {key}\nDeletion Date: {deletion_date}\n\nIf you believe this is an error, please contact support.\n\nBest regards,\nLicense Server",
-
     "email_test_subject": "License Server Email Test",
     "email_test_body": "This is a test email from your License Server.\n\nIf you received this email, your SMTP settings are working correctly.\n\nTime sent: {time}\nServer IP: {ip}",
-
     "email_expires_on": "Expires on: {date}",
     "email_never_expires": "Never expires"
 }
