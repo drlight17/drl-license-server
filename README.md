@@ -73,27 +73,7 @@ SWAGGER_API_VERSION=1.0.0
 TZ=UTC
 ```
 
-4. Create necessary directories and language files:
-```bash
-mkdir -p data logs lang
-```
-
-5. Create language files:
-- `lang/en.json` (English translations)
-- `lang/ru.json` (Russian translations)
-
-Example `lang/en.json`:
-```json
-{
-  "email_license_created_user_subject": "License Created - Awaiting Activation",
-  "email_license_created_user_body": "Hello,\n\nA new license for {product} has been created for you.\n\nLicense Key: {key}\nCreated on: {created}\n{expires_info}\n\nThis license requires manual activation by our administrator. You will receive another email once it's activated.\n\nBest regards,\nLicense Server",
-  "email_license_created_admin_subject": "New License Request - Requires Activation",
-  "email_license_created_admin_body": "Administrator,\n\nA new license request has been submitted and requires manual activation.\n\nUser: {user}\nProduct: {product}\nLicense Key: {key}\nCreated on: {created}\n{expires_info}\n\nPlease activate this license through the admin panel.\n\nBest regards,\nLicense Server",
-  "...": "..."
-}
-```
-
-6. Start the server:
+4. Start the server:
 ```bash
 docker-compose up -d
 ```
