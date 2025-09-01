@@ -1142,7 +1142,8 @@ try {
             // Form test message
             $subject = getLocalizedText('email_test_subject', $clientLocale);
             $message = getLocalizedText('email_test_body', $clientLocale, [
-                'ip' => getClientIP()
+                'ip' => getClientIP(),
+                'time' => date('c')
             ]);
 
             // Try to send email
