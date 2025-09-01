@@ -7,7 +7,8 @@ services:
     env_file:
       - .env
     volumes:
-      - ./src:/var/www/html
+      # Uncomment when Developing to access source code
+      #- ./src:/var/www/html
       - ./data:/var/www/data
       - ./logs:/var/www/logs
       # Mount timezone data from host
