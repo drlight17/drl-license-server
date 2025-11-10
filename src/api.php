@@ -358,7 +358,8 @@ function logAction($action, $details = [], $keysFile) {
     $logEntry = [
         'timestamp' => $timestamp,
         'action' => $action,
-        'ip' => $_SERVER['REMOTE_ADDR'] ?? 'unknown',
+        //'ip' => $_SERVER['REMOTE_ADDR'] ?? 'unknown',
+        'ip' => getClientIP(),
         'user_agent' => $_SERVER['HTTP_USER_AGENT'] ?? 'unknown',
         'details' => $details
     ];
