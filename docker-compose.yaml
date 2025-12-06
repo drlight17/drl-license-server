@@ -1,9 +1,9 @@
 services:
   license-server:
-    #image: drlight17/drl-license-server:latest
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: drlight17/drl-license-server:latest
+    #build:
+    #  context: .
+    #  dockerfile: Dockerfile
     container_name: license-server
     ports:
       - ${WEB_EXP_GUI_PORT}:80
