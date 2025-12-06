@@ -579,7 +579,7 @@ tail -f logs/license.log
 git clone https://github.com/drlight17/drl-license-server
 cd drl-license-server
 ```
-- check that /src/.htaccess file is not missed
+- check that /src/.htaccess file is not missed (rename /src/htaccess to /src/.htaccess if it is missed)
 - build image:
 ```bash
 docker build -t <your_tag_name> --no-cache .
