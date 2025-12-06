@@ -1,7 +1,7 @@
 <?php
 session_start();
 // version
-$version = '0.92';
+$version = '0.93';
 // --- Localization Logic ---
 $supportedLocales = ['en', 'ru'];
 $defaultLocale = 'en';
@@ -92,7 +92,9 @@ $template_vars = [
     'lang' => $lang,
     'isAdmin' => $isAdmin,
     'adminKey' => $adminKey,
-    'loginError' => $loginError ?? null // Pass login error if exists
+    'loginError' => $loginError ?? null, // Pass login error if exists
+    'logHousekeepingDays' => (int) getenv('LOG_HOUSEKEEPING') ?: 0,
+    'logLevel' => getenv('LOG_LEVEL') ?: 'info' // Получаем уровень логирования, по умолчанию 'info'
 ];
 
 // Extract variables for convenience in the template

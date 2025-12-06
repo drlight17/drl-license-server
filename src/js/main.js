@@ -58,12 +58,42 @@ function initializeApp() {
     }
 }
 
+// --- NEW: Sidebar Toggle ---
+function initializeSidebarToggle() {
+    const $sidebarContainer = $('#sidebar-container'); // Container div with column class
+    const $sidebarMenu = $('#sidebar-menu'); // Menu inside the container
+    const $toggleBtn = $('#toggle-sidebar-btn');
+
+    // Check localStorage for sidebar state on page load and apply classes
+    if (localStorage.getItem('sidebarCollapsed') === 'true') {
+        // Apply collapsed state: menu items and container width
+        $sidebarMenu.addClass('collapsed');
+        // Toggle the column width classes on the container
+        $sidebarContainer.removeClass('three wide').addClass('two wide');
+    }
+
+    $toggleBtn.on('click', function(e) {
+        e.preventDefault(); // Prevent default anchor click behavior
+        // Toggle the 'collapsed' class on the menu items
+        $sidebarMenu.toggleClass('collapsed');
+        // Toggle the column width classes on the container
+        $sidebarContainer.toggleClass('three wide two wide'); // This swaps between the two classes
+
+        // Save state to localStorage based on whether the menu has the 'collapsed' class
+        const isCollapsed = $sidebarMenu.hasClass('collapsed');
+        localStorage.setItem('sidebarCollapsed', isCollapsed);
+    });
+}
+
 // --- Function containing all other initialization logic ---
 function runInitializationScripts() {
     console.log("Running initialization scripts...");
     try {
         // --- Theme initialization ---
         initializeTheme();
+
+        initializeSidebarToggle(); // Call the initialization function
+        // --- END NEW ---
 
         // --- Language switcher initializer ---
         $('#language-select').dropdown();
@@ -139,6 +169,10 @@ function runInitializationScripts() {
 
         $('#refreshLogsBtn').click(function () { refreshLogs(1); });
         $('#logOperationFilter').on('change', function () { refreshLogs(1); });
+        // --- НОВОЕ: Обработчик для текстового фильтра логов ---
+        $('#logSearch').on('input', function () { // Используем 'input' для фильтрации "на лету"
+            refreshLogs(1); // Обновляем логи с первой страницы при вводе текста
+        });
         $('#applyFilters').click(function () { applyFilters(1); });
 
         $('#sendTestEmailBtn').on('click', function () {
@@ -173,8 +207,14 @@ function runInitializationScripts() {
             window.resizeTimer = setTimeout(updateScrollOverlays, 100);
         });
 
+        // applyFilters on enter
         $('#licenseSearch').keypress(function (e) {
             if (e.which === 13) { applyFilters(1); }
+        });
+
+        // applyFilters on input
+        $('#licenseSearch').on('input', function () {
+            applyFilters(1);
         });
 
         // --- Loading initial data ---
@@ -554,10 +594,18 @@ function refreshLogs(page = 1) {
     // Use global adminKey variable
     const limit = parseInt($('#logsPerPage').val()) || 10;
     const operationFilter = $('#logOperationFilter').val();
+    // --- НОВОЕ: Получение значения текстового фильтра ---
+    const logSearchTerm = $('#logSearch').val();
+    // --- КОНЕЦ НОВОГО ---
     let data = 'action=logs&limit=' + limit + '&admin_key=' + encodeURIComponent(adminKey) + '&page=' + page;
     if (operationFilter) {
         data += '&operation=' + encodeURIComponent(operationFilter);
     }
+    // --- НОВОЕ: Добавление параметра поиска ---
+    if (logSearchTerm) {
+        data += '&log_search=' + encodeURIComponent(logSearchTerm);
+    }
+    // --- КОНЕЦ НОВОГО ---
     $.ajax({
         url: '/api',
         method: 'POST',
@@ -631,20 +679,56 @@ function displayLogs(data) {
         if (logCount > 0) {
             let html = '<div class="ui feed">';
             data.content.forEach(entry => {
+                // --- Начало изменений ---
+                // Определяем иконку в зависимости от действия
+                let icon = 'question'; // Иконка по умолчанию
+                switch (entry.action) {
+                    case 'validate':
+                        icon = 'check'; // или 'key', 'shield'
+                        break;
+                    case 'activate':
+                        icon = 'play'; // или 'power', 'toggle on'
+                        break;
+                    case 'create':
+                        icon = 'plus'; // или 'add', 'plus circle'
+                        break;
+                    case 'delete':
+                        icon = 'trash'; // или 'remove'
+                        break;
+                    case 'list':
+                        icon = 'list'; // или 'list ul', 'th list'
+                        break;
+                    case 'logs_access':
+                        icon = 'file text'; // или 'history', 'file alternate'
+                        break;
+                    case 'error':
+                        icon = 'exclamation triangle'; // или 'warning sign', 'bug'
+                        break;
+                    case 'test_email':
+                        icon = 'mail'; // или 'send', 'envelope'
+                        break;
+                    // Добавьте другие действия по мере необходимости
+                    default:
+                        icon = 'question'; // Или 'help', 'asterisk'
+                }
+
+                // Опционально: Определяем цвет метки действия
                 const actionColors = {
                     'validate': 'blue', 'activate': 'green', 'create': 'positive',
-                    'delete': 'red', 'list': 'purple', 'logs_access': 'orange', 'error': 'negative'
+                    'delete': 'red', 'list': 'purple', 'logs_access': 'orange', 'error': 'negative', 'test_email': 'teal'
                 };
                 const color = actionColors[entry.action] || 'grey';
+                // --- Конец изменений ---
+
                 const actionLabel = entry.action.toUpperCase();
                 html += `
                     <div class="event">
                         <div class="label">
-                            <i class="${entry.action} icon"></i>
+                            <i class="${icon} icon"></i> <!-- Используем определенную иконку -->
                         </div>
                         <div class="content">
                             <div class="summary">
-                                <div class="ui ${color} label">${actionLabel}</div>
+                                <div class="ui ${color} label">${actionLabel}</div> <!-- Используем определенный цвет -->
                                 ${entry.ip || t('unknown_ip')}
                                 <div class="date">${entry.timestamp}</div>
                             </div>

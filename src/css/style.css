@@ -118,7 +118,7 @@ input[type="email"]:valid:not(:focus):not(:placeholder-shown) {
 }
 
 /* Make THEAD sticky */
-[data-tab="licenses"] thead, [data-tab="logs"] .ui.form {
+[data-tab="licenses"] thead, [data-tab="logs"] .ui.form:not(:logsPaginationContainer) {
     position: sticky;
     top: 0;
     z-index: 9; /* Ensure it's above table body */
@@ -131,13 +131,17 @@ input[type="email"]:valid:not(:focus):not(:placeholder-shown) {
 }
 
 /* Styles for sticky pagination */
+[data-tab="licenses"] .ui.segment, [data-tab="logs"] .ui.segment {
+    z-index: 8;
+}
+
 .licensesPaginationContainer, .logsPaginationContainer {
     position: sticky!important;
     bottom: 0;
     background-color: white; /* Background to hide scrolling content behind */
     padding: 1em 0; /* Padding top and bottom */
     margin-top: 1em; /* Top margin from table */
-    z-index: 10; /* Ensure it's above content */
+    z-index: 9; /* Ensure it's above content */
     box-shadow: 0 -2px 2px -1px rgba(0, 0, 0, 0.1); /* Optional: shadow from top */
     /* border-top: 1px solid rgba(34, 36, 38, 0.1); /* Optional: line from top */
 }
@@ -299,11 +303,84 @@ body.inverted #theme-toggle {
     bottom: 0;
     margin-right: 10px;
     transition: filter .1s ease, opacity .1s ease, background-color .1s ease, color .1s ease, box-shadow .1s ease, background .1s ease;
-    z-index: -1;
+    z-index: 7;
 }
 .footer p {
     position: fixed;
     left: 40%;
     bottom: 15px;
     z-index: -1;
+}
+/* Стили для свернутого бокового меню */
+#sidebar-menu.collapsed .menu-text {
+    display: none; /* Скрываем текст */
+}
+
+/*#sidebar-menu.collapsed .menu-content {
+    text-align: center;
+}*/
+
+#sidebar-menu.collapsed .ui.icon {
+    font-size: 1.5em !important; /* Увеличиваем размер иконки */
+    margin: 0 !important; /* Убираем отступы иконки */
+}
+
+#toggle-sidebar-btn {
+    margin-bottom: 10px;
+    width: fit-content;
+}
+/* Дополнительные стили для кнопки переключения */
+#toggle-sidebar-btn .menu-text {
+    margin-left: 0.5em; /* Отступ текста от иконки кнопки */
+
+}
+
+/* Обеспечиваем, что иконки в обычном состоянии имеют стандартный размер */
+#sidebar-menu:not(.collapsed) .ui.icon {
+    font-size: 1em; /* Стандартный размер иконки */
+}
+#sidebar-container {
+    transition: width 0.2s ease-in-out;
+}
+@media (max-width: 767.98px) {
+    /* Скрываем кнопку переключения */
+    #toggle-sidebar-btn {
+        display: none !important;
+    }
+
+    /* Принудительно показываем тексты в элементах меню, переопределяя состояние .collapsed */
+    #sidebar-menu.collapsed .menu-text {
+        display: inline !important; /* Показываем текст span */
+    }
+
+    /* Возвращаем стандартное выравнивание и ширину элементам меню */
+    #sidebar-menu.collapsed .ui.vertical.menu .item {
+        width: auto !important; /* Возвращаем автоматическую ширину */
+        text-align: left !important; /* Возвращаем левое выравнивание */
+    }
+
+    /* Возвращаем стандартный размер иконки */
+    #sidebar-menu.collapsed .ui.icon {
+        font-size: 1em !important; /* Возвращаем стандартный размер иконки */
+        margin-right: 0.5em !important; /* Возвращаем стандартный отступ */
+    }
+
+    /* Увеличиваем ширину колонки sidebar на мобильных, чтобы она занимала больше места */
+    #sidebar-container {
+        width: 100% !important; /* Занимает всю ширину */
+        flex: 0 0 100% !important;
+        max-width: 100% !important;
+        position: relative !important; /* Сбрасываем возможное fixed positioning */
+        z-index: auto !important; /* Сбрасываем z-index */
+    }
+
+    /* Убираем фиксированную высоту у меню, если она была, чтобы оно могло расти */
+    #sidebar-menu {
+        height: auto !important;
+        max-height: none !important;
+        overflow-y: visible !important;
+    }
+    [data-tab="dashboard"] .ui.card {
+        width:100%;
+    }
 }

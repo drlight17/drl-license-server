@@ -77,27 +77,43 @@
             <!-- Main Interface -->
             <div class="ui stackable grid">
                 <!-- Sidebar -->
-                <div class="three wide column">
-                    <div class="ui vertical fluid tabular menu">
+                <div class="three wide column" id="sidebar-container">
+                    <div class="ui vertical fluid tabular menu" id="sidebar-menu">
+                        <!-- NEW: Toggle Button -->
+                        <a class="item" id="toggle-sidebar-btn" href="#" onclick="return false;" title="<?= htmlspecialchars($lang['toggle_sidebar'] ?? 'Toggle Sidebar'); ?>">
+                            <i class="bars icon"></i>
+                            <span class="menu-text"><?= htmlspecialchars($lang['toggle_sidebar'] ?? 'Toggle Sidebar'); ?></span>
+                        </a>
+                        <!-- END NEW -->
                         <a class="item active" data-tab="dashboard">
-                            <i class="dashboard icon"></i>
-                            <?= htmlspecialchars($lang['nav_dashboard'] ?? 'Dashboard'); ?>
+                            <div class="menu-content"> <!-- Wrapped in div -->
+                                <i class="dashboard icon"></i>
+                                <span class="menu-text"><?= htmlspecialchars($lang['nav_dashboard'] ?? 'Dashboard'); ?></span>
+                            </div>
                         </a>
                         <a class="item" data-tab="licenses" onclick="applyFilters(1);">
-                            <i class="list icon"></i>
-                            <?= htmlspecialchars($lang['nav_licenses'] ?? 'Licenses'); ?>
+                            <div class="menu-content"> <!-- Wrapped in div -->
+                                <i class="list icon"></i>
+                                <span class="menu-text"><?= htmlspecialchars($lang['nav_licenses'] ?? 'Licenses'); ?></span>
+                            </div>
                         </a>
                         <a class="item" data-tab="logs">
-                            <i class="file alternate icon"></i>
-                            <?= htmlspecialchars($lang['nav_logs'] ?? 'Logs'); ?>
+                            <div class="menu-content"> <!-- Wrapped in div -->
+                                <i class="file alternate icon"></i>
+                                <span class="menu-text"><?= htmlspecialchars($lang['nav_logs'] ?? 'Logs'); ?></span>
+                            </div>
                         </a>
                         <a class="item" href="/api/swagger?lang=<?= $currentLocale; ?>" target="_blank">
-                            <i class="code icon"></i>
-                            <?= htmlspecialchars($lang['nav_api_docs'] ?? 'API Docs'); ?>
+                            <div class="menu-content"> <!-- Wrapped in div -->
+                                <i class="code icon"></i>
+                                <span class="menu-text"><?= htmlspecialchars($lang['nav_api_docs'] ?? 'API Docs'); ?></span>
+                            </div>
                         </a>
                         <a class="item" href="?logout=1&lang=<?= $currentLocale; ?>">
-                            <i class="sign out icon"></i>
-                            <?= htmlspecialchars($lang['nav_logout'] ?? 'Logout'); ?>
+                            <div class="menu-content"> <!-- Wrapped in div -->
+                                <i class="sign out icon"></i>
+                                <span class="menu-text"><?= htmlspecialchars($lang['nav_logout'] ?? 'Logout'); ?></span>
+                            </div>
                         </a>
                     </div>
                 </div>
@@ -343,17 +359,16 @@
                         <div class="ui segment">
                             <div class="ui form">
                                 <div class="fields">
-                                    <!-- Existing "Entries per page" filter -->
+                                    <!-- NEW: Text search field for logs -->
                                     <div class="four wide field">
-                                        <label><?= htmlspecialchars($lang['logs_entries_per_page'] ?? 'Entries per page'); ?></label>
-                                        <select class="ui dropdown" id="logsPerPage">
-                                            <option value="5">5</option>
-                                            <option value="10" selected>10</option>
-                                            <option value="25">25</option>
-                                            <option value="50">50</option>
-                                            <option value="100">100</option>
-                                        </select>
+                                        <label><?= htmlspecialchars($lang['logs_search_label'] ?? 'Search Logs'); ?></label>
+                                        <input type="text" id="logSearch" placeholder="<?= htmlspecialchars($lang['logs_search_placeholder'] ?? 'Search logs...'); ?>">
+                                        <!-- NEW: Div for housekeeping and log level info -->
+                                        <div id="logConfigInfo" style="margin-top: 5px; font-size: 0.75em; color: #666;">
+                                            LOG_LEVEL: <?= htmlspecialchars($logLevel); ?>
+                                        </div>
                                     </div>
+
                                     <!-- New "Operation Type" filter -->
                                     <div class="four wide field">
                                         <label><?= htmlspecialchars($lang['logs_operation_type'] ?? 'Operation Type'); ?></label>
@@ -369,13 +384,31 @@
                                             <option value="error"><?= htmlspecialchars($lang['logs_operation_error'] ?? 'Error'); ?></option>
                                         </select>
                                     </div>
-                                    <!-- Refresh button with changed ID for clarity -->
+                                    <!-- Existing "Entries per page" filter -->
+                                    <div class="four wide field">
+                                        <label><?= htmlspecialchars($lang['logs_entries_per_page'] ?? 'Entries per page'); ?></label>
+                                        <select class="ui dropdown" id="logsPerPage">
+                                            <option value="5">5</option>
+                                            <option value="10" selected>10</option>
+                                            <option value="25">25</option>
+                                            <option value="50">50</option>
+                                            <option value="100">100</option>
+                                        </select>
+                                    </div>
+                                    <!-- Refresh button remains in the same row -->
                                     <div class="four wide field">
                                         <label>&nbsp;</label>
-                                        <button class="ui primary button" id="refreshLogsBtn">
+                                        <button class="ui button" id="refreshLogsBtn">
                                             <i class="refresh icon"></i>
                                             <?= htmlspecialchars($lang['logs_refresh_button'] ?? 'Refresh'); ?>
                                         </button>
+                                        <span id="logHousekeepingInfo" style="margin-left: 10px; font-size: 0.8em; color: #666;">
+                                            <?php if ($logHousekeepingDays > 0): ?>
+                                                <?= htmlspecialchars($lang['logs_housekeeping_enabled'] ?? 'Logs kept for last') . ' ' . $logHousekeepingDays . ' ' . ($logHousekeepingDays == 1 ? ($lang['day'] ?? 'day') : ($lang['days'] ?? 'days')); ?>
+                                            <?php else: ?>
+                                                <?= htmlspecialchars($lang['logs_housekeeping_disabled'] ?? 'Auto-cleanup not enabled'); ?>
+                                            <?php endif; ?>
+                                        </span>
                                     </div>
                                 </div>
                             </div>
