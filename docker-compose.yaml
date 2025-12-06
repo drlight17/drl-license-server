@@ -1,16 +1,20 @@
 services:
   license-server:
-    image: drlight17/drl-license-server:latest
+    #image: drlight17/drl-license-server:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
     container_name: license-server
     ports:
-      - "8080:80"
+      - ${WEB_EXP_GUI_PORT}:80
     env_file:
       - .env
     volumes:
       # Uncomment when Developing to access source code
-      #- ./src:/var/www/html
-      - ./data:/var/www/data
+      - ./src:/var/www/html
       - ./logs:/var/www/logs
+      - ./redis_data:/var/lib/redis
+      - ./redis_log:/var/log/redis
       # Mount timezone data from host
       - /etc/localtime:/etc/localtime:ro
       - /etc/timezone:/etc/timezone:ro
@@ -18,3 +22,4 @@ services:
       # Set timezone from host
       - TZ=${TZ:-UTC}
     restart: unless-stopped
+
