@@ -579,6 +579,7 @@ tail -f logs/license.log
 git clone https://github.com/drlight17/drl-license-server
 cd drl-license-server
 ```
+- check that /src/.htaccess file is not missed
 - build image:
 ```bash
 docker build -t <your_tag_name> --no-cache .
@@ -600,6 +601,8 @@ docker-compose build --no-cache
 - `docker-compose.yml` - Docker orchestration
 - `/src/lang/*.json` - Localization files
 - `/src/css/style.css` - main CSS style
+- `/src/htacces` - rename it to .htaccess before build image if original .htaccess is missed
+- `/src/.htacces` - apache redirect/routing file
 
 
 ### Adding New Features
