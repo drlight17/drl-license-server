@@ -47,20 +47,14 @@ wget https://raw.githubusercontent.com/drlight17/drl-license-server/refs/heads/m
 LICENSE_SECRET_KEY=your_very_secret_license_key_here_2023
 LICENSE_SALT=your_salt_for_hashing_here
 ADMIN_KEY=your_admin_secret_key_for_deletion_2023
-
-# SMTP Configuration for Email Notifications
-SMTP_HOST=smtp.yourmailserver.com
-SMTP_PORT=587
-SMTP_USERNAME=your_smtp_username
-SMTP_PASSWORD=your_smtp_password
-SMTP_ENCRYPTION=tls
-SMTP_FROM=noreply@yourdomain.com
-SMTP_FROM_NAME=License Server
-SEND_EMAILS=true
-
-# Admin Email for Notifications
-ADMIN_EMAIL=admin@yourdomain.com
-
+# License key template. Use 'X' to set unique symbols.
+# Ex:
+# LICENSE_KEY_TEMPLATE=XXXX-XXXX-XXXX-XXXX (по умолчанию)
+# LICENSE_KEY_TEMPLATE=XXXXX-XXXXX-XXXXX
+# LICENSE_KEY_TEMPLATE=XXXXXXXXXXXXXXXX
+# LICENSE_KEY_TEMPLATE=ABC-XXXX-DEF-XXXX-GHI
+LICENSE_KEY_TEMPLATE=XXXX-XXXX-XXXX-XXXX
+TZ=Europe/Moscow
 # Swagger UI Configuration
 SWAGGER_SERVER_URL=http://localhost:8080
 SWAGGER_SERVER_DESCRIPTION=Local development server
@@ -69,9 +63,26 @@ SWAGGER_CONTACT_EMAIL=support@example.com
 SWAGGER_API_TITLE=License Server API
 SWAGGER_API_DESCRIPTION=API for license validation, activation, and management for shareware applications
 SWAGGER_API_VERSION=1.0.0
+# SMTP Configuration
+SMTP_HOST=your.smtp.server.com
+SMTP_PORT=587
+SMTP_USERNAME=your_email@example.com
+SMTP_PASSWORD=your_email_password
+SMTP_ENCRYPTION=tls
+SMTP_FROM=licenses@yourcompany.com
+SMTP_FROM_NAME=Your Company Licenses
+# Expose License server gui port
+WEB_EXP_GUI_PORT = 8080
+# do more operations to inlcude in logs (logs_access adds if 'debug' is set), default(unset) is 'info'
+#LOG_LEVEL = debug
+# remove logs older then set number of days once a day, default (unset) is 0 means no housekeeping 
+#LOG_HOUSEKEEPING = 30
 
-# Timezone
-TZ=UTC
+# Email sending control
+SEND_EMAILS=true
+
+# Admin email for test emails (SMTP_FROM will be used if this is empty)
+ADMIN_EMAIL=admin@yourcompany.com
 ```
 
 4. Start the server:
