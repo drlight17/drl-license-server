@@ -515,6 +515,16 @@ License data and logs are stored in redis Docker volumes (json is deprecated sin
 - ./redis_data - License keys
 - ./redis_log - Activity logs
 
+## Update procedure
+
+I use Docker you can just stop container, rorce pull new image and start again (for v0.93 and newer you will need to download newer version of [docker-compose.yaml](https://raw.githubusercontent.com/drlight17/drl-license-server/refs/heads/main/docker-compose.yaml) or manually add redis volume mount points: redis_data and redis_log):
+```bash
+docker-compose down
+docker-compose pull
+wget https://raw.githubusercontent.com/drlight17/drl-license-server/refs/heads/main/docker-compose.yaml
+docker-compose up -d
+```
+
 ## Security Considerations
 
 1. **Change default keys** in `.env` file
