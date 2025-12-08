@@ -74,9 +74,9 @@ SMTP_FROM_NAME=Your Company Licenses
 # Expose License server gui port
 WEB_EXP_GUI_PORT = 8080
 # do more operations to inlcude in logs (logs_access adds if 'debug' is set), default(unset) is 'info'
-#LOG_LEVEL = debug
+LOG_LEVEL = debug
 # remove logs older then set number of days once a day, default (unset) is 0 means no housekeeping 
-#LOG_HOUSEKEEPING = 30
+LOG_HOUSEKEEPING = 30
 
 # Email sending control
 SEND_EMAILS=true
