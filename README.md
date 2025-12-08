@@ -102,8 +102,8 @@ composer require phpmailer/phpmailer
 5. Set proper permissions:
 ```bash
 chmod -R 755 /path/to/web/directory
-chmod 666 data/keys.json
-chmod 666 logs/license.log
+chmod 666 data/keys.json # (deprecated since v0.93)
+chmod 666 logs/license.log # (deprecated since v0.93)
 ```
 
 ## Usage
@@ -460,6 +460,10 @@ Common error codes:
 | `ADMIN_KEY` | Admin key for protected operations | `admin_secret_key_2023` |
 | `ADMIN_EMAIL` | Admin email for notifications | `null` |
 | `TZ` | Timezone | `UTC` |
+| `LICENSE_KEY_TEMPLATE` | License key template. Use 'X' to set unique symbols | `XXXX-XXXX-XXXX-XXXX` |
+| `WEB_EXP_GUI_PORT` | Expose License server gui port | `8080` |
+| `LOG_LEVEL` | Log level to inlcude | `null` |
+| `LOG_HOUSEKEEPING` | Remove logs older then set number of days once a day | `null` |
 
 ### SMTP Configuration
 | Variable | Description | Default |
@@ -505,9 +509,11 @@ docker-compose exec drl-license-server bash
 
 ## Data Persistence
 
-License data and logs are stored in Docker volumes:
+License data and logs are stored in redis Docker volumes (json is deprecated since v0.93):
 - `./data` - License keys (`keys.json`)
 - `./logs` - Activity logs (`license.log`)
+- ./redis_data - License keys
+- ./redis_log - Activity logs
 
 ## Security Considerations
 
@@ -567,7 +573,7 @@ Check logs for debugging:
 # Docker logs
 docker-compose logs drl-license-server
 
-# Application logs
+# Application logs (deprecated since v0.93)
 tail -f logs/license.log
 ```
 
