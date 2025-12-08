@@ -11,8 +11,7 @@ services:
       - .env
     volumes:
       # Uncomment when Developing to access source code
-      - ./src:/var/www/html
-      - ./logs:/var/www/logs
+      #- ./src:/var/www/html
       - ./redis_data:/var/lib/redis
       - ./redis_log:/var/log/redis
       # Mount timezone data from host
