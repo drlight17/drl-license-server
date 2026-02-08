@@ -342,12 +342,10 @@ body.inverted #theme-toggle {
 #sidebar-container {
     transition: width 0.2s ease-in-out;
 }
-
-#refreshLogsButton {
+.refreshLogsButton {
     display: flex;
     flex-direction: column;
 }
-
 @media (max-width: 767.98px) {
     /* Скрываем кнопку переключения */
     #toggle-sidebar-btn {
